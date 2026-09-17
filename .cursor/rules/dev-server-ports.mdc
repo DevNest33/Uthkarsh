@@ -1,0 +1,29 @@
+---
+description: Reuse or kill existing Vite/dev ports; never spawn a new port per change
+alwaysApply: true
+---
+
+# Dev server ports
+
+Do **not** start a new Vite (or other) dev server on a fresh port every time you make a change. Prefer HMR on the already-running server.
+
+## Rules
+
+1. **Before** `npm run dev` / `vite`, check existing terminals and listening ports (`5173`, `5174`, `5175`, etc.).
+2. If a healthy server is already running for this project, **reuse it** — do not start another.
+3. If you must start a server and the preferred port is busy with a **stale/zombie** process from this project, **kill that process first**, then start on the same port (prefer `5173`).
+4. Never rely on Vite's "port in use, trying another one" behavior for agent workflows — that scatters URLs (`5173` → `5174` → `5175`).
+5. After starting, report the single URL you are using.
+
+## Windows (PowerShell) helpers
+
+```powershell
+# Find listeners on common Vite ports
+Get-NetTCPConnection -LocalPort 5173,5174,5175 -State Listen -ErrorAction SilentlyContinue |
+  Select-Object LocalPort, OwningProcess
+
+# Kill by PID
+Stop-Process -Id <PID> -Force
+```
+
+Prefer one long-lived `npm run dev -- --port 5173` per session.

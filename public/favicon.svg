@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="30 60 380 382" role="img" aria-label="Uthkarsh">
+  <defs>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD86B"/>
+      <stop offset="1" stop-color="#F4B942"/>
+    </linearGradient>
+  </defs>
+  <path d="M30 250a190 190 0 0 1 380 0Z" fill="url(#sun)"/>
+  <path d="M30 250h380" stroke="#0B1F33" stroke-width="25"/>
+  <path d="M72 295h296M91 340h258M116 385h208M151 430h138" stroke="#0B1F33" stroke-width="24" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Uthkarsh sunrise logo</title>
+  <desc id="desc">A warm gold rising sun over a navy horizon with horizontal bands, paired with the UTHKARSH wordmark.</desc>
+  <defs>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD86B"/>
+      <stop offset="1" stop-color="#F4B942"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#FAFAF7"/>
+  <!-- Selected row 5 / column 1 mark, refined as a sunrise and horizon. -->
+  <g transform="translate(115 165)">
+    <path d="M30 250a190 190 0 0 1 380 0Z" fill="url(#sun)"/>
+    <path d="M30 250h380" stroke="#0B1F33" stroke-width="25"/>
+    <path d="M72 295h296M91 340h258M116 385h208M151 430h138" stroke="#0B1F33" stroke-width="24" stroke-linecap="round"/>
+  </g>
+  <g fill="#0B1F33" transform="translate(590 300)">
+    <text x="0" y="0" font-family="Montserrat, Arial, sans-serif" font-weight="800" font-size="112" letter-spacing="10">UTHKARSH</text>
+    <rect x="2" y="43" width="97" height="9" rx="4.5" fill="#F97316"/>
+    <text x="3" y="115" font-family="Montserrat, Arial, sans-serif" font-weight="600" font-size="30" letter-spacing="6" fill="#64748B">GLOBAL SOURCING &amp; TRADING</text>
+  </g>
+</svg>
