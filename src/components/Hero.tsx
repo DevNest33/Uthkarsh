@@ -276,6 +276,8 @@ export function Hero({ ready = false }: HeroProps) {
   }, [applyLabels])
 
   useEffect(() => {
+    if (!ready) return
+
     const loaded = new Array(HERO_FRAME_COUNT).fill(false) as boolean[]
     const imgs = new Array(HERO_FRAME_COUNT).fill(null) as (
       | HTMLImageElement
@@ -284,6 +286,7 @@ export function Hero({ ready = false }: HeroProps) {
     loadedRef.current = loaded
     framesRef.current = imgs
     let cancelled = false
+    const timers: number[] = []
 
     function loadFrame(i: number) {
       if (cancelled || imgs[i]) return
@@ -303,13 +306,14 @@ export function Hero({ ready = false }: HeroProps) {
     loadFrame(LAST_INDEX)
     for (let i = 1; i < LAST_INDEX; i++) {
       const delay = Math.floor(i / 8) * 12
-      window.setTimeout(() => loadFrame(i), delay)
+      timers.push(window.setTimeout(() => loadFrame(i), delay))
     }
 
     return () => {
       cancelled = true
+      for (const timer of timers) window.clearTimeout(timer)
     }
-  }, [frameForProgress, paintIndex])
+  }, [ready, frameForProgress, paintIndex])
 
   useEffect(() => {
     const canvas = canvasRef.current

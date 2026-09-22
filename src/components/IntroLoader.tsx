@@ -85,17 +85,25 @@ export function IntroLoader({ onComplete }: IntroLoaderProps) {
 
     const onEnded = () => fadeOut()
     const onError = () => fadeOut()
+    const startPlayback = () => {
+      void video.play().catch(() => fadeOut())
+    }
+
     video.addEventListener('ended', onEnded)
     video.addEventListener('error', onError)
 
-    video.currentTime = 0
-    void video.play().catch(() => fadeOut())
+    if (video.readyState >= HTMLMediaElement.HAVE_FUTURE_DATA) {
+      startPlayback()
+    } else {
+      video.addEventListener('canplay', startPlayback, { once: true })
+    }
 
     return () => {
       signal.cancelled = true
       window.clearTimeout(failsafe)
       video.removeEventListener('ended', onEnded)
       video.removeEventListener('error', onError)
+      video.removeEventListener('canplay', startPlayback)
       document.body.style.overflow = previousOverflow
       document.body.removeAttribute('aria-busy')
     }
