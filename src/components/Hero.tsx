@@ -42,6 +42,8 @@ function isMobileViewport() {
 
 type HeroProps = {
   ready?: boolean
+  onHome?: () => void
+  onExplore?: () => void
 }
 
 /**
@@ -144,7 +146,7 @@ function renderLines(id: LabelTrackId): React.ReactNode {
   ))
 }
 
-export function Hero({ ready = false }: HeroProps) {
+export function Hero({ ready = false, onHome, onExplore }: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const uiRef = useRef<HTMLDivElement>(null)
@@ -490,7 +492,7 @@ export function Hero({ ready = false }: HeroProps) {
           aria-hidden={reduced ? undefined : true}
         >
           <div className="absolute inset-x-0 top-0 z-50">
-            <Header tone="cinematic" />
+            <Header tone="cinematic" onHome={onHome} onCatalogue={onExplore} />
           </div>
 
           <div className="absolute bottom-[clamp(1.5rem,4.5vh,3.25rem)] left-[clamp(1.25rem,5vw,7rem)] right-[clamp(1.25rem,5vw,7rem)] max-w-[44rem]">
@@ -519,6 +521,10 @@ export function Hero({ ready = false }: HeroProps) {
               <a
                 href="#catalogue"
                 className="inline-flex items-center justify-center border border-warm/50 bg-transparent px-[clamp(1rem,1.7vw,1.6rem)] py-[clamp(0.75rem,1.15vw,0.95rem)] text-center text-[clamp(0.62rem,0.85vw,0.75rem)] font-bold tracking-[0.1em] text-warm uppercase transition-colors duration-200 hover:border-warm hover:bg-warm/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm"
+                onClick={(event) => {
+                  event.preventDefault()
+                  onExplore?.()
+                }}
               >
                 Explore Products
               </a>

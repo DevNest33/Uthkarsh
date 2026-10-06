@@ -99,13 +99,17 @@ html.hero-cinematic-scrubbing::-webkit-scrollbar {
   background: var(--color-white);
 }
 
-.about-sheet-side {
-  grid-column: 2;
-  grid-row: 1;
+.about-side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  pointer-events: none;
+}
+
+.about-sheet-side,
+.about-sheet-follow {
   position: relative;
-  z-index: 2;
-  align-self: stretch;
-  margin-top: 1.25rem;
+  pointer-events: auto;
 }
 
 .about-sheet-back {
@@ -127,6 +131,15 @@ html.hero-cinematic-scrubbing::-webkit-scrollbar {
     padding-bottom: 5rem;
   }
 
+  .about-side-column {
+    grid-column: 2;
+    grid-row: 1;
+    z-index: 4;
+    align-self: stretch;
+    justify-content: space-between;
+    margin-top: 1.25rem;
+  }
+
   .about-sheet-back {
     transform: translateZ(-140px) rotateX(10deg) rotateZ(-7deg);
     transform-origin: center top;
@@ -140,6 +153,11 @@ html.hero-cinematic-scrubbing::-webkit-scrollbar {
   .about-sheet-side {
     transform: translateZ(-24px) rotateX(6deg) rotateY(11deg) rotateZ(3deg);
     transform-origin: left center;
+  }
+
+  .about-sheet-follow {
+    transform: translateZ(-12px) rotateX(4deg) rotateY(8deg) rotateZ(2deg);
+    transform-origin: left bottom;
   }
 
   .about-sheet-back:hover {
@@ -156,10 +174,17 @@ html.hero-cinematic-scrubbing::-webkit-scrollbar {
   }
 
   .about-sheet-side:hover {
-    z-index: 8;
-    transform: translateZ(70px) rotateX(4deg) rotateY(8deg) rotateZ(2deg)
-      translateY(-18px);
-    box-shadow: 0 46px 100px rgba(11, 31, 51, 0.28);
+    z-index: 2;
+    transform: translateZ(90px) rotateX(3deg) rotateY(6deg) rotateZ(1.5deg)
+      translateY(-28px);
+    box-shadow: 0 48px 90px rgba(11, 31, 51, 0.38);
+  }
+
+  .about-sheet-follow:hover {
+    z-index: 2;
+    transform: translateZ(90px) rotateX(2deg) rotateY(4deg) rotateZ(1deg)
+      translateY(-28px);
+    box-shadow: 0 48px 90px rgba(11, 31, 51, 0.28);
   }
 }
 
@@ -173,6 +198,7 @@ html.hero-cinematic-scrubbing::-webkit-scrollbar {
 
   .about-sheet-front,
   .about-sheet-side,
+  .about-sheet-follow,
   .about-sheet-back {
     width: 100%;
     margin: 0;
@@ -189,10 +215,103 @@ html.hero-cinematic-scrubbing::-webkit-scrollbar {
   .about-sheet-back,
   .about-sheet-front,
   .about-sheet-side,
+  .about-sheet-follow,
   .about-sheet-back:hover,
   .about-sheet-front:hover,
-  .about-sheet-side:hover {
+  .about-sheet-side:hover,
+  .about-sheet-follow:hover {
     transform: none;
     transition: none;
+  }
+}
+
+.catalogue-cutout {
+  filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.22));
+  transition:
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+button:hover .catalogue-cutout,
+button:focus-visible .catalogue-cutout,
+.catalogue-product:hover .catalogue-cutout {
+  transform: translateY(-10px);
+  filter: drop-shadow(0 28px 22px rgba(0, 0, 0, 0.32));
+}
+
+.catalogue-thumbs button:hover .catalogue-cutout,
+.catalogue-thumbs button:focus-visible .catalogue-cutout {
+  transform: translateY(-4px);
+  filter: drop-shadow(0 16px 14px rgba(0, 0, 0, 0.28));
+}
+
+.catalogue-slide-in.is-next {
+  animation: catalogue-in-next 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.catalogue-slide-in.is-prev {
+  animation: catalogue-in-prev 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.catalogue-slide-out.is-next {
+  animation: catalogue-out-next 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.catalogue-slide-out.is-prev {
+  animation: catalogue-out-prev 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes catalogue-in-next {
+  from {
+    transform: translateX(42%) scale(0.5);
+  }
+  to {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes catalogue-out-next {
+  from {
+    transform: translateX(0) scale(1);
+  }
+  to {
+    transform: translateX(-46%) scale(0.45);
+  }
+}
+
+@keyframes catalogue-in-prev {
+  from {
+    transform: translateX(-42%) scale(0.5);
+  }
+  to {
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes catalogue-out-prev {
+  from {
+    transform: translateX(0) scale(1);
+  }
+  to {
+    transform: translateX(46%) scale(0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .catalogue-slide-in,
+  .catalogue-slide-out,
+  .catalogue-panel,
+  .catalogue-cutout {
+    animation: none;
+    transition: none;
+  }
+
+  button:hover .catalogue-cutout,
+  button:focus-visible .catalogue-cutout,
+  .catalogue-product:hover .catalogue-cutout,
+  .catalogue-thumbs button:hover .catalogue-cutout,
+  .catalogue-thumbs button:focus-visible .catalogue-cutout {
+    transform: none;
+    filter: drop-shadow(0 18px 18px rgba(0, 0, 0, 0.22));
   }
 }

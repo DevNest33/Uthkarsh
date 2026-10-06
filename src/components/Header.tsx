@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react'
 import { BrandLockup } from './BrandLockup'
 
 const NAV_LINKS = [
@@ -9,9 +10,24 @@ const NAV_LINKS = [
 
 type HeaderProps = {
   tone?: 'light' | 'cinematic'
+  active?: 'catalogue'
+  onHome?: () => void
+  onCatalogue?: () => void
+  onEnquire?: () => void
 }
 
-export function Header({ tone = 'light' }: HeaderProps) {
+function go(event: MouseEvent<HTMLAnchorElement>, action?: () => void) {
+  event.preventDefault()
+  action?.()
+}
+
+export function Header({
+  tone = 'light',
+  active,
+  onHome,
+  onCatalogue,
+  onEnquire,
+}: HeaderProps) {
   const cinematic = tone === 'cinematic'
 
   return (
@@ -19,7 +35,7 @@ export function Header({ tone = 'light' }: HeaderProps) {
       className={
         cinematic
           ? 'border-b border-white/10 bg-transparent'
-          : 'sticky top-0 z-40 border-b border-navy/5 bg-white/25 backdrop-blur-xl supports-[backdrop-filter]:bg-white/20'
+          : 'sticky top-0 z-40 border-b border-navy/8 bg-white/95 backdrop-blur-xl'
       }
     >
       <div className="mx-auto flex h-[clamp(4.25rem,7vw,5.75rem)] max-w-[90rem] items-center gap-[clamp(1rem,2vw,1.75rem)] px-[clamp(1.25rem,4vw,6rem)]">
@@ -30,7 +46,7 @@ export function Header({ tone = 'light' }: HeaderProps) {
               ? 'shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm'
               : 'shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy'
           }
-          onClick={(event) => event.preventDefault()}
+          onClick={(event) => go(event, onHome)}
           aria-label="Uthkarsh home"
         >
           <BrandLockup size="nav" tone={cinematic ? 'onDark' : 'default'} />
@@ -40,20 +56,32 @@ export function Header({ tone = 'light' }: HeaderProps) {
           className="ml-auto hidden items-center gap-[clamp(0.85rem,1.8vw,2.5rem)] sm:flex"
           aria-label="Primary"
         >
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.map((link) => {
+            const current = link.href === '#catalogue' && active === 'catalogue'
+            return (
             <a
               key={link.href}
               href={link.href}
               className={
                 cinematic
                   ? 'text-[clamp(0.62rem,0.95vw,0.78rem)] font-medium tracking-[0.04em] text-warm/75 transition-colors hover:text-warm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm'
-                  : 'text-[clamp(0.62rem,0.95vw,0.78rem)] font-medium tracking-[0.04em] text-navy/70 transition-colors hover:text-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy'
+                  : current
+                    ? 'text-[clamp(0.62rem,0.95vw,0.78rem)] font-semibold tracking-[0.04em] text-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy'
+                    : 'text-[clamp(0.62rem,0.95vw,0.78rem)] font-medium tracking-[0.04em] text-navy/70 transition-colors hover:text-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy'
               }
-              onClick={(event) => event.preventDefault()}
+              aria-current={
+                link.href === '#catalogue' && active === 'catalogue'
+                  ? 'page'
+                  : undefined
+              }
+              onClick={(event) =>
+                go(event, link.href === '#catalogue' ? onCatalogue : undefined)
+              }
             >
               {link.label}
             </a>
-          ))}
+            )
+          })}
         </nav>
 
         <a
@@ -63,7 +91,7 @@ export function Header({ tone = 'light' }: HeaderProps) {
               ? 'inline-flex min-h-9 shrink-0 items-center border border-gold bg-gold px-[clamp(0.85rem,1.4vw,1.25rem)] py-2 text-[clamp(0.62rem,0.9vw,0.72rem)] font-semibold tracking-[0.08em] text-navy transition-colors duration-200 hover:bg-transparent hover:text-gold focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold'
               : 'inline-flex min-h-9 shrink-0 items-center border border-navy bg-navy px-[clamp(0.85rem,1.4vw,1.25rem)] py-2 text-[clamp(0.62rem,0.9vw,0.72rem)] font-semibold tracking-[0.08em] text-white transition-colors duration-200 hover:bg-transparent hover:text-navy focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy'
           }
-          onClick={(event) => event.preventDefault()}
+          onClick={(event) => go(event, onEnquire)}
         >
           Enquire
         </a>
