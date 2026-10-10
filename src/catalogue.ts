@@ -2,10 +2,13 @@ export const CATALOGUE_CATEGORIES = ['All', 'Tops', 'Denim', 'Trousers'] as cons
 
 export type CatalogueCategory = (typeof CATALOGUE_CATEGORIES)[number]
 
+export type ProductOrigin = 'DE' | 'IN' | 'GB' | 'CA' | 'BR' | 'AU'
+
 export type CatalogueProduct = {
   id: string
   name: string
   category: Exclude<CatalogueCategory, 'All'>
+  origin: ProductOrigin
   headline: [string, string]
   line: string
   image: string
@@ -17,6 +20,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'striped-jersey',
     name: 'Striped football jersey',
     category: 'Tops',
+    origin: 'DE',
     headline: ['A jersey', 'for the lot'],
     line: 'A striped football jersey shown for sourcing, not sold by the piece.',
     image: '/catalogue/striped-jersey.png',
@@ -26,6 +30,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'cable-polo',
     name: 'Cable polo',
     category: 'Tops',
+    origin: 'DE',
     headline: ['Cable knit,', 'cut close'],
     line: 'A short-sleeve cable polo for knit programmes bought in volume.',
     image: '/catalogue/cable-polo.png',
@@ -35,6 +40,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'brown-polo',
     name: 'Brown knit polo',
     category: 'Tops',
+    origin: 'IN',
     headline: ['A polo', 'in brown knit'],
     line: 'A buttoned knit polo for ranges that buy tops by the lot.',
     image: '/catalogue/brown-polo.png',
@@ -44,6 +50,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'blue-tee',
     name: 'Blue tee',
     category: 'Tops',
+    origin: 'IN',
     headline: ['A plain tee,', 'ready to scale'],
     line: 'An oversized blue tee for basics programmes sourced in quantity.',
     image: '/catalogue/blue-tee.png',
@@ -53,6 +60,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'blueberry-tee',
     name: 'Blueberry tee',
     category: 'Tops',
+    origin: 'GB',
     headline: ['A print', 'on cotton'],
     line: 'A graphic tee shown for sourcing across markets.',
     image: '/catalogue/blueberry-tee.png',
@@ -62,6 +70,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'crest-sweatshirt',
     name: 'Crest sweatshirt',
     category: 'Tops',
+    origin: 'GB',
     headline: ['A sweatshirt', 'with a crest'],
     line: 'A crested sweatshirt for apparel lots, not single retail.',
     image: '/catalogue/crest-sweatshirt.png',
@@ -71,6 +80,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'grid-shirt',
     name: 'Grid shirt',
     category: 'Tops',
+    origin: 'CA',
     headline: ['A shirt', 'on a grid'],
     line: 'A printed camp shirt for fashion ranges bought in volume.',
     image: '/catalogue/grid-shirt.png',
@@ -80,6 +90,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'washed-jeans',
     name: 'Washed wide jeans',
     category: 'Denim',
+    origin: 'CA',
     headline: ['Wide denim,', 'washed through'],
     line: 'Washed wide-leg jeans for denim programmes sourced by the lot.',
     image: '/catalogue/washed-jeans.png',
@@ -89,6 +100,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'faded-jeans',
     name: 'Faded wide jeans',
     category: 'Denim',
+    origin: 'BR',
     headline: ['Faded denim,', 'cut wide'],
     line: 'Faded wide-leg jeans shown for sourcing, not priced for sale.',
     image: '/catalogue/faded-jeans.png',
@@ -98,6 +110,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'light-jeans',
     name: 'Light wide jeans',
     category: 'Denim',
+    origin: 'BR',
     headline: ['Light wash,', 'full length'],
     line: 'Light-wash wide jeans for denim ranges bought in quantity.',
     image: '/catalogue/light-jeans.png',
@@ -107,6 +120,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'indigo-jeans',
     name: 'Indigo wide jeans',
     category: 'Denim',
+    origin: 'AU',
     headline: ['Indigo,', 'held wide'],
     line: 'Dark indigo wide-leg jeans for bulk denim supply.',
     image: '/catalogue/indigo-jeans.png',
@@ -116,6 +130,7 @@ export const CATALOGUE_PRODUCTS: CatalogueProduct[] = [
     id: 'olive-trousers',
     name: 'Olive wide trousers',
     category: 'Trousers',
+    origin: 'AU',
     headline: ['Olive cloth,', 'cut wide'],
     line: 'Wide olive trousers for trouser programmes sourced by the lot.',
     image: '/catalogue/olive-trousers.png',
